@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background-color: black; */
+            margin: 0;
+        }
+
+        .container {
+            height: 400px;
+            width: 450px;
+            background:linear-gradient(-140deg,#808080,#809fff,#808080);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .quote {
+            text-align: center;
+            height: 170px;
+            width: 380px;
+            background-color:sandybrown;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+            /* margin-left: 30px; */
+        }
+
+        p {
+            color: black;
+            text-align: right;
+            position: relative;
+            top: -40px;
+            font-family: sans-serif;
+            left: -45px;
+        }
+
+        .btn {
+            height: 30px;
+            width: 90px;
+            background-color: black;
+            color: white;
+            margin-bottom: 80px; /* Add margin at the bottom */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h3 class="quote">Quote goes here....</h3>
+            <p class="author"></p>
+        </div>
+        <div class="nutto">
+            <button class="btn" onclick="generateQuote()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        function generateQuote() {
+            let quote = document.querySelector(".quote");
+            let author = document.querySelector(".author");
+
+            fetch("http://api.quotable.io/random")
+                .then(res => res.json())
+                .then(data => {
+                    quote.innerHTML = `"${data.content}"`;
+                    author.innerHTML = `-${data.author}`;
+                })
+                .catch(error => console.error('Error fetching quote:', error));
+        }
+    </script>
+</body>
+</html>

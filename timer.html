@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+           
+            background-color: #343839;
+        }
+
+        .timer-container {
+            text-align: center;
+            height: 300px;
+            border-radius: 50px;
+            width: 300px;
+            border: 1px solid rgb(0, 221, 255);
+        }
+
+        #countdown {
+            font-size: 3em;
+            color: white;
+        }
+
+        button {
+            margin: 10px;
+            padding: 8px 16px;
+            border-width: 0px;
+            font-size: 1em;
+            background-color: aqua;
+            cursor: pointer;
+        }
+    </style>
+    <title>Countup Timer with Controls</title>
+</head>
+<body>
+    <div class="timer-container">
+        <h1 style="color: aqua;">Countdown Timer</h1>
+        <h1 id="countdown">00:00:00</h1>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        let currentTime = 0;
+        let intervalId;
+
+        function updateTimer() {
+            const hours = Math.floor(currentTime / 3600);
+            const minutes = Math.floor((currentTime % 3600) / 60);
+            const seconds = currentTime % 60;
+
+            const countdownElement = document.getElementById("countdown");
+            countdownElement.textContent = `${hours.toString().padStart(2, '0')}:
+                                              ${minutes.toString().padStart(2, '0')}:
+                                              ${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            intervalId = setInterval(function () {
+                currentTime++;
+                updateTimer();
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(intervalId);
+        }
+
+        function resetTimer() {
+            currentTime = 0;
+            updateTimer();
+        }
+
+        // Initialize the timer
+        updateTimer();
+    </script>
+</body>
+</html>
